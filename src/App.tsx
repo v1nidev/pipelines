@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Checkbox } from "./shared/Checkbox";
 import { Column } from "./Column";
+import { Header } from "./Header";
 
 const filters = ["Basic", "Advanced", "Expert", "Custom"] as const;
 
@@ -63,6 +64,7 @@ function App() {
 
   return (
     <div className="flex flex-col px-3 h-screen bg-slate-100">
+      <Header />
       <main className="flex pt-11 flex-col grow items-center rounded-t-3xl bg-white">
         <fieldset className="flex flex-col items-center w-full">
           <legend className="text-2xl font-semibold text-center">

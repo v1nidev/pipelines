@@ -1,4 +1,5 @@
 import { InputHTMLAttributes } from "react";
+import { TRANSACTION_CLASSES } from "./global-stiles";
 
 interface CheckboxProps
   extends Omit<
@@ -11,7 +12,6 @@ interface CheckboxProps
   onChange?: (isChecked: boolean) => void;
 }
 
-const TRANSACTION_CLASSES = "transition-colors ease-in-out duration-300";
 const ARROW_CLASSES = `
   after:ml-0.5 after:text-red-500 after:h-3 after:w-3 after:bg-white
   after:border-r-2 after:border-b-2 after:border-blue-700 after:rounded-br
