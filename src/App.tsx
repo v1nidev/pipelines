@@ -2,36 +2,64 @@ import { useState } from "react";
 import { Checkbox } from "./shared/Checkbox";
 import { Column } from "./Column";
 
-const filters = ["Basic", "Advanced", "Expert", "Custom"];
-const columns = [
+const filters = ["Basic", "Advanced", "Expert", "Custom"] as const;
+
+type Label = (typeof filters)[number];
+
+type Column = {
+  title: string;
+  color: string;
+  label: Label;
+};
+
+const columns: Column[] = [
   {
     title: "Lead",
     color: "purple",
+    label: "Expert",
   },
   {
     title: "RFP in progress",
     color: "orange",
+    label: "Advanced",
   },
   {
     title: "Submitted",
     color: "blue",
+    label: "Basic",
   },
   {
     title: "Won",
     color: "cyan",
+    label: "Basic",
   },
   {
     title: "Lost",
     color: "pink",
+    label: "Custom",
   },
   {
     title: "Closed",
     color: "gray",
+    label: "Basic",
   },
 ];
 
 function App() {
-  const [checkedFilter, setCheckedFilter] = useState("");
+  const [selectedLabel, setSelectedLabel] = useState<Label>("Basic");
+  const selectedLabelFilterIndex = filters.findIndex(
+    (filter) => filter === selectedLabel
+  );
+
+  function filterColumnByLabel(column: Column) {
+    if (!selectedLabel) return true;
+
+    const columnLabelIndex = filters.findIndex(
+      (filter) => filter === column.label
+    );
+
+    return columnLabelIndex >= selectedLabelFilterIndex;
+  }
 
   return (
     <div className="flex flex-col px-3 h-screen bg-slate-100">
@@ -42,22 +70,22 @@ function App() {
             company
           </legend>
           <div className="flex mt-11 gap-x-3 min-w-[45%]">
-            {filters.map((filter) => (
+            {filters.map((label) => (
               <Checkbox
-                key={filter}
+                key={label}
                 className="grow shrink-0 basis-0"
-                name={filter}
-                label={filter}
-                checked={checkedFilter === filter}
+                name={label}
+                label={label}
+                checked={selectedLabel === label}
                 onChange={(isChecked) =>
-                  setCheckedFilter(isChecked ? filter : "")
+                  setSelectedLabel(isChecked ? label : "Basic")
                 }
               />
             ))}
           </div>
         </fieldset>
         <div className="flex mt-16 grow gap-x-3">
-          {columns.map((column) => (
+          {columns.filter(filterColumnByLabel).map((column) => (
             <Column key={column.title} {...column} />
           ))}
         </div>
