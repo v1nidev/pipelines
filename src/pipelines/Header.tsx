@@ -1,5 +1,5 @@
-import { StepButton } from "./shared/StepButton";
-import { TRANSACTION_CLASSES } from "./shared/global-stiles";
+import { StepButton } from "../shared/StepButton";
+import { TRANSACTION_CLASSES } from "../shared/global-stiles";
 
 function Header() {
   return (

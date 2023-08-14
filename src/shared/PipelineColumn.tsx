@@ -1,9 +1,9 @@
-export interface ColumnProps {
+export interface PipelineColumnProps {
   title: string;
   color: string;
 }
 
-function Column({ title, color }: ColumnProps) {
+function PipelineColumn({ title, color }: PipelineColumnProps) {
   return (
     <section className={`pt-2.5 px-1.5 min-w-[225px] rounded-xl bg-${color}-50`}>
       <div className="px-2">
@@ -21,4 +21,4 @@ function Column({ title, color }: ColumnProps) {
   );
 }
 
-export { Column };
+export { PipelineColumn };

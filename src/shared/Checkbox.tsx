@@ -2,12 +2,8 @@ import { InputHTMLAttributes } from "react";
 import { TRANSACTION_CLASSES } from "./global-stiles";
 
 interface CheckboxProps
-  extends Omit<
-    InputHTMLAttributes<HTMLInputElement>,
-    "type" | "onChange" | "name"
-  > {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   label: string;
-  name: string;
   isChecked?: boolean;
   onChange?: (isChecked: boolean) => void;
 }
@@ -23,11 +19,11 @@ const ARROW_CLASSES = `
 function Checkbox({
   label,
   className,
-  checked: isChecked = false,
+  isChecked = false,
   onChange = () => null,
   ...rest
 }: CheckboxProps) {
-  const id = rest.id || rest.name;
+  const id = rest.id || label;
 
   return (
     <div className={className}>
@@ -46,20 +42,20 @@ function Checkbox({
           rounded-lg cursor-pointer bg-white hover:bg-slate-100
           outline outline-1 outline-slate-200
           peer-checked:outline peer-checked:outline-2 peer-checked:outline-blue-700
-          ${isChecked ? ARROW_CLASSES : ""}
           ${TRANSACTION_CLASSES}
+          ${isChecked ? ARROW_CLASSES : ""}
           ${className || ""}
         `}
       >
         <div
           className={`
             mr-3.5 relative border-2 w-4 h-4 rounded
+            ${TRANSACTION_CLASSES}
             ${
               isChecked
                 ? "border-blue-700 bg-blue-700"
                 : "border-slate-300 bg-white hover:bg-slate-200"
             }
-            ${TRANSACTION_CLASSES}
           `}
         >
           <svg
